@@ -51,7 +51,7 @@ if not data_line_nation.empty:
     ax.plot(years, data_line_nation[year_columns].values.flatten(), label="Japan", color="#999999", linewidth=2)
 if pref != "全国":
     if not data_line_pref.empty:
-    ax.plot(years, data_line_pref[year_columns].values.flatten(), label=pref_label, color="#E69F00", linewidth=2)
+        ax.plot(years, data_line_pref[year_columns].values.flatten(), label=pref_label, color="#E69F00", linewidth=2)
 ax.set_xlabel("Year")
 ax.set_ylabel("ASR (per 100,000, under 75)")
 ax.legend()
