@@ -77,5 +77,48 @@ ax2.set_ylabel("ASR (per 100,000, under 75)")
 ax2.set_xticklabels(data_bar_sorted["英語県名"], rotation=60, ha='right', fontsize=10)
 st.pyplot(fig2)
 
+import json
+import plotly.express as px
+
+# 地図描画（都道府県別ヒートマップ）
+st.subheader(f"{year} - Prefecture ASR Map: {site} ({gender})")
+
+# 都道府県コードを追加（JISコード）
+pref_code_map = {
+    "北海道": "01", "青森県": "02", "岩手県": "03", "宮城県": "04", "秋田県": "05",
+    "山形県": "06", "福島県": "07", "茨城県": "08", "栃木県": "09", "群馬県": "10",
+    "埼玉県": "11", "千葉県": "12", "東京都": "13", "神奈川県": "14", "新潟県": "15",
+    "富山県": "16", "石川県": "17", "福井県": "18", "山梨県": "19", "長野県": "20",
+    "岐阜県": "21", "静岡県": "22", "愛知県": "23", "三重県": "24", "滋賀県": "25",
+    "京都府": "26", "大阪府": "27", "兵庫県": "28", "奈良県": "29", "和歌山県": "30",
+    "鳥取県": "31", "島根県": "32", "岡山県": "33", "広島県": "34", "山口県": "35",
+    "徳島県": "36", "香川県": "37", "愛媛県": "38", "高知県": "39", "福岡県": "40",
+    "佐賀県": "41", "長崎県": "42", "熊本県": "43", "大分県": "44", "宮崎県": "45",
+    "鹿児島県": "46", "沖縄県": "47"
+}
+data_bar["コード"] = data_bar["都道府県"].map(pref_code_map)
+
+# GeoJSONの読み込み（事前にStreamlit Cloud上にファイルがある前提）
+try:
+    with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
+        geojson = json.load(f)
+
+    fig3 = px.choropleth(
+        data_bar,
+        geojson=geojson,
+        locations="コード",
+        color=str(year),
+        color_continuous_scale="OrRd",
+        range_color=(data_bar[str(year)].min(), data_bar[str(year)].max()),
+        featureidkey="properties.code",
+        labels={str(year): "ASR"},
+        scope="asia"
+    )
+    fig3.update_geos(fitbounds="locations", visible=False)
+    fig3.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    st.plotly_chart(fig3)
+except Exception as e:
+    st.info("Map data not available in this environment.")
+
 # 出典
 st.caption("Source: National Cancer Center Japan, Cancer Information Service (https://ganjoho.jp/reg_stat/statistics/data/dl/index.html)")
