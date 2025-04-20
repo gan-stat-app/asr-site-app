@@ -111,7 +111,7 @@ try:
     with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
         geojson = json.load(f)
 
-    fig3 = px.choropleth(
+    fig3 = px.choropleth_mapbox(
         data_bar,
         geojson=geojson,
         locations="コード",
@@ -122,7 +122,7 @@ try:
         labels={str(year): "ASR"},
         scope="asia"
     )
-    fig3.update_geos(fitbounds="locations", visible=False)
+    fig3.update_layout(mapbox_style="carto-positron", mapbox_zoom=4.5, mapbox_center={"lat": 36.5, "lon": 138.0})
     fig3.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig3)
 except Exception as e:
