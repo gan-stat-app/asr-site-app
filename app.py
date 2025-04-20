@@ -75,7 +75,6 @@ ax2.bar(data_bar_sorted["英語県名"], data_bar_sorted[str(year)], color="#007
 ax2.set_xlabel("Prefecture")
 ax2.set_ylabel("ASR (per 100,000, under 75)")
 ax2.set_xticklabels(data_bar_sorted["英語県名"], rotation=60, ha='right', fontsize=10)
-st.download_button("Download CSV", data_bar_sorted.to_csv(index=False), file_name="asr_comparison.csv", mime="text/csv")
 st.pyplot(fig2)
 
 # 出典
