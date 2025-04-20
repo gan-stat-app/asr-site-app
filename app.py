@@ -120,7 +120,7 @@ try:
         range_color=(data_bar[str(year)].min(), data_bar[str(year)].max()),
         featureidkey="properties.code",
         labels={str(year): "ASR"},
-        scope="asia"
+        
     )
     fig3.update_layout(mapbox_style="carto-positron", mapbox_zoom=4.5, mapbox_center={"lat": 36.5, "lon": 138.0})
     fig3.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
