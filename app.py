@@ -37,7 +37,7 @@ genders = df["性別"].unique()
 # UI
 st.title("Cancer Site-specific Age-adjusted Mortality Rate (Under 75)")
 
-site = st.sidebar.selectbox("Select cancer site", sorted(sites), index=sorted(sites).index("悪性新生物"))
+site = st.sidebar.selectbox("Select cancer site", sites, index=sites.index("悪性新生物"))
 gender = st.sidebar.selectbox("Select gender", genders)
 pref = st.sidebar.selectbox("Select prefecture", prefs)
 year = st.sidebar.selectbox("Select year for comparison", sorted(years))
