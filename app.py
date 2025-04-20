@@ -47,7 +47,8 @@ data_line_pref = data_line[data_line["都道府県"] == pref]
 # 折れ線グラフ
 st.subheader(f"{site} ({gender}) - Trend: {pref_label} vs National Average")
 fig, ax = plt.subplots()
-ax.plot(years, data_line_nation[year_columns].values.flatten(), label="Japan", color="#999999", linewidth=2)
+if not data_line_nation.empty:
+    ax.plot(years, data_line_nation[year_columns].values.flatten(), label="Japan", color="#999999", linewidth=2)
 if pref != "全国":
     ax.plot(years, data_line_pref[year_columns].values.flatten(), label=pref_label, color="#E69F00", linewidth=2)
 ax.set_xlabel("Year")
