@@ -40,7 +40,7 @@ st.title("Cancer Site-specific Age-adjusted Mortality Rate (Under 75)")
 site = st.sidebar.selectbox("Select cancer site", sites, index=sites.index("全部位"))
 gender = st.sidebar.selectbox("Select gender", genders)
 pref = st.sidebar.selectbox("Select prefecture", prefs)
-year = st.sidebar.slider("Select year for comparison", min(years), max(years), value=min(years))
+year = st.sidebar.selectbox("Select year for comparison", sorted(years))
 
 # 表示用ラベル変換
 pref_label = pref_map.get(pref, pref)
