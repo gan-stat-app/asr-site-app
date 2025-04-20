@@ -25,7 +25,7 @@ pref_map = {
 
 # 選択肢作成
 site_order = [
-    "悪性新生物", "食道", "胃", "結腸", "直腸Ｓ状結腸移行部",
+    "全部位", "食道", "胃", "結腸", "直腸Ｓ状結腸移行部",
     "肝及び肝内胆管", "胆のう及び他の胆道", "膵", "気管、気管支及び肺",
     "乳房（女性のみ）", "子宮", "卵巣", "前立腺", "膀胱の悪性新生物",
     "悪性リンパ腫", "白　血　病", "大腸"
@@ -37,7 +37,7 @@ genders = df["性別"].unique()
 # UI
 st.title("Cancer Site-specific Age-adjusted Mortality Rate (Under 75)")
 
-site = st.sidebar.selectbox("Select cancer site", sites, index=sites.index("悪性新生物"))
+site = st.sidebar.selectbox("Select cancer site", sites, index=sites.index("全部位"))
 gender = st.sidebar.selectbox("Select gender", genders)
 pref = st.sidebar.selectbox("Select prefecture", prefs)
 year = st.sidebar.selectbox("Select year for comparison", sorted(years))
