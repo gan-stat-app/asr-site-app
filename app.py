@@ -31,7 +31,7 @@ genders = df["性別"].unique()
 # UI
 st.title("Cancer Site-specific Age-adjusted Mortality Rate (Under 75)")
 
-site = st.sidebar.selectbox("Select cancer site", sorted(sites))
+site = st.sidebar.selectbox("Select cancer site", sorted(sites), index=sorted(sites).index("全部位"))
 gender = st.sidebar.selectbox("Select gender", genders)
 pref = st.sidebar.selectbox("Select prefecture", prefs)
 year = st.sidebar.selectbox("Select year for comparison", sorted(years))
@@ -50,6 +50,7 @@ fig, ax = plt.subplots()
 if not data_line_nation.empty:
     ax.plot(years, data_line_nation[year_columns].values.flatten(), label="Japan", color="#999999", linewidth=2)
 if pref != "全国":
+    if not data_line_pref.empty:
     ax.plot(years, data_line_pref[year_columns].values.flatten(), label=pref_label, color="#E69F00", linewidth=2)
 ax.set_xlabel("Year")
 ax.set_ylabel("ASR (per 100,000, under 75)")
