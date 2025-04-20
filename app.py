@@ -99,12 +99,7 @@ pref_code_map = {
 data_bar["コード"] = data_bar["都道府県"].map(pref_code_map)
 
 # GeoJSONの読み込み（中身確認用）
-st.subheader("GeoJSON debug info (first feature)")
-try:
-    with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
-        geojson = json.load(f)
-    if geojson and "features" in geojson and len(geojson["features"]) > 0:
-        st.write(geojson["features"][0]["properties"])
+
 except Exception as e:
     st.warning("Could not read GeoJSON file.")
 try:
@@ -122,7 +117,7 @@ try:
         labels={str(year): "ASR"},
         
     )
-    fig3.update_layout(mapbox_style="carto-positron", mapbox_zoom=4.5, mapbox_center={"lat": 36.5, "lon": 138.0})
+    fig3.update_layout(mapbox_style="open-street-map", mapbox_zoom=5, mapbox_center={"lat": 37.5, "lon": 137.0})
     fig3.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig3)
 except Exception as e:
