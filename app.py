@@ -98,7 +98,15 @@ pref_code_map = {
 }
 data_bar["コード"] = data_bar["都道府県"].map(pref_code_map)
 
-# GeoJSONの読み込み（事前にStreamlit Cloud上にファイルがある前提）
+# GeoJSONの読み込み（中身確認用）
+st.subheader("GeoJSON debug info (first feature)")
+try:
+    with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
+        geojson = json.load(f)
+    if geojson and "features" in geojson and len(geojson["features"]) > 0:
+        st.write(geojson["features"][0]["properties"])
+except Exception as e:
+    st.warning("Could not read GeoJSON file.")
 try:
     with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
         geojson = json.load(f)
