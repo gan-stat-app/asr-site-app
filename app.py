@@ -100,8 +100,6 @@ data_bar["コード"] = data_bar["都道府県"].map(pref_code_map)
 
 # GeoJSONの読み込み（中身確認用）
 
-except Exception as e:
-    st.warning("Could not read GeoJSON file.")
 try:
     with open("japan_prefectures.geojson", "r", encoding="utf-8") as f:
         geojson = json.load(f)
