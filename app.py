@@ -40,7 +40,7 @@ st.title("Cancer Site-specific Age-adjusted Mortality Rate (Under 75)")
 site = st.sidebar.selectbox("Select cancer site", sites, index=sites.index("全部位"))
 gender = st.sidebar.selectbox("Select gender", genders)
 pref = st.sidebar.selectbox("Select prefecture", prefs)
-year = st.sidebar.selectbox("Select year for comparison", sorted(years))
+year = st.sidebar.slider("Select year for comparison", min(years), max(years), value=min(years))
 
 # 表示用ラベル変換
 pref_label = pref_map.get(pref, pref)
@@ -60,7 +60,9 @@ if pref != "全国":
         ax.plot(years, data_line_pref[year_columns].values.flatten(), label=pref_label, color="#E69F00", linewidth=2)
 ax.set_xlabel("Year")
 ax.set_ylabel("ASR (per 100,000, under 75)")
-ax.legend()
+ax.legend(loc="upper right")
+if data_line_pref.empty and pref != "全国":
+    st.warning(f"No data available for {site} ({gender}) in {pref}")
 st.pyplot(fig)
 
 # 特定年の都道府県比較
@@ -73,6 +75,7 @@ ax2.bar(data_bar_sorted["英語県名"], data_bar_sorted[str(year)], color="#007
 ax2.set_xlabel("Prefecture")
 ax2.set_ylabel("ASR (per 100,000, under 75)")
 ax2.set_xticklabels(data_bar_sorted["英語県名"], rotation=60, ha='right', fontsize=10)
+st.download_button("Download CSV", data_bar_sorted.to_csv(index=False), file_name="asr_comparison.csv", mime="text/csv")
 st.pyplot(fig2)
 
 # 出典
